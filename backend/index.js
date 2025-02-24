@@ -1,3 +1,4 @@
+
 const express = require("express")
 const app = express()
 const cors = require("cors")
@@ -7,6 +8,8 @@ app.use(cors());
 
 // ポート番号の設定
 const port = 5000;
+
+const fishData = []
 
 // ミドルウェア設定: リクエストボディをJSONとしてパース
 app.use(express.json());
@@ -18,7 +21,7 @@ app.get('/', (req, res) => {
 
 // /api/hello パス (GETリクエスト)
 app.get('/api/hello', (req, res) => {
-    res.send("hello API")
+    // res.send("hello APIsss")
   res.json({ message: 'Hello, API!' });
 });
 

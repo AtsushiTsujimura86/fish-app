@@ -7,18 +7,42 @@ function FishList() {
     const [fishCnt, setFishCnt] = useState(0)
     // const [fishList, addFish] = useFish()
     const [fishList, setFishList] = useState([])
-    console.log("Fetching from:", API_URL + "/fish");
+    console.log("Fetching from:", API_URL + "/hello");
     console.log(API_URL)
     useEffect(() => {
         //fishリストのフェッチ(GETリクエスト)
-        fetch(API_URL + "/fish")
-        .then(response => response.text()) // JSONではなくテキストで取得
-        .then(text => {
-            console.log("API Response:", text); // レスポンスの内容を確認
-            return JSON.parse(text); // JSONパースを試す
-        })
-        .then(data => setFishList(Array.isArray(data) ? data : []))
-        .catch(error => console.error("Error fetching fish:", error));
+        const fetchData = async() => {
+            try{
+                const response = await fetch(API_URL + "/hello")
+                console.log("response: ", response)
+                if(!response.ok){
+                    throw new Error(`HTTP error! Status: ${response.status}`)
+                }
+                const result = await response.json()
+                console.log("result: ", result)
+
+            } catch(err){
+                console.log("error!: ", err.message)    
+            }finally{
+
+            }
+        }
+        fetchData()
+
+
+
+        // fetch(API_URL + "/hello")
+        // .then(response => {
+        //     console.log("response: ", response)
+        //     console.log("response.text(): ",response.text())
+        //     console.log("response.json(): ",response.json())
+        // }) // JSONではなくテキストで取得
+        // .then(text => {
+        //     console.log("API Response:", text); // レスポンスの内容を確認
+        //     return JSON.parse(text); // JSONパースを試す
+        // })
+        // .then(data => setFishList(Array.isArray(data) ? data : []))
+        // .catch(error => console.error("Error fetching fish:", error));
     }, [])
 
     return (
