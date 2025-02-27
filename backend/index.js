@@ -6,15 +6,15 @@ import { db_config } from './db_config.js'; // require → import
 const app = express();
 
 // CORSを許可する設定（全てのドメインからのリクエストを許可）
-const allowedOrigins = ['https://fish-creater.vercel.app'];  // フロントエンドのURLを指定
-const corsOptions = {
-  origin: allowedOrigins,
-  methods: ['GET', 'POST'],  // 許可するHTTPメソッド
-  allowedHeaders: ['Content-Type', 'Authorization'],  // 許可するヘッダー
-};
+// const allowedOrigins = ['https://fish-creater.vercel.app'];  // フロントエンドのURLを指定
+// const corsOptions = {
+//   origin: allowedOrigins,
+//   methods: ['GET', 'POST'],  // 許可するHTTPメソッド
+//   allowedHeaders: ['Content-Type', 'Authorization'],  // 許可するヘッダー
+// };
 
 // CORSを全てのルートに適用
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // ポート番号の設定
 const port = process.env.PORT || 5000;
@@ -47,7 +47,15 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.get('/api/fish', async (req, res) => {
-    res.set({ 'Access-Control-Allow-Origin': '*' });
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    // another common pattern
+    // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    )
     try {
         const [rows] = await pool.query('SELECT * FROM fish');
         res.json(rows); // クライアントに JSON でデータを返す
