@@ -47,14 +47,15 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.get('/api/fish', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * FROM fish');
-    res.json(rows); // クライアントに JSON でデータを返す
-  } catch (error) {
-    console.error('データ取得エラー:', error.message);
-    res.status(500).json({ error: 'データ取得に失敗しました' });
-  }
-});
+    res.set({ 'Access-Control-Allow-Origin': '*' });
+    try {
+        const [rows] = await pool.query('SELECT * FROM fish');
+        res.json(rows); // クライアントに JSON でデータを返す
+    } catch (error) {
+        console.error('データ取得エラー:', error.message);
+        res.status(500).json({ error: 'データ取得に失敗しました' });
+    }
+    });
 
 app.post('/api/fish', async (req, res) => {
   const { name, headColor, bodyColor, finColor } = req.body;
