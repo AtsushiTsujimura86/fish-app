@@ -6,13 +6,23 @@ import { db_config } from './db_config.js'; // require → import
 const app = express();
 
 // CORSを許可する設定（全てのドメインからのリクエストを許可）
-app.use(cors());
+const allowedOrigins = ['https://fish-creater.vercel.app'];  // フロントエンドのURLを指定
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: ['GET', 'POST'],  // 許可するHTTPメソッド
+  allowedHeaders: ['Content-Type', 'Authorization'],  // 許可するヘッダー
+};
+
+// CORSを全てのルートに適用
+app.use(cors(corsOptions));
 
 // ポート番号の設定
 const port = process.env.PORT || 5000;
+console.log("lellll")
 
 // MySQL データベース接続設定
 const pool = mysql.createPool(db_config);
+console.log(pool)
 
 const fishData = [
   {

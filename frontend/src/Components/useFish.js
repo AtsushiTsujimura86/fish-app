@@ -25,6 +25,7 @@ function useFish() {
         try{
           const response = await fetch(API_URL + "/fish", {
             method:"POST",
+            mode:"cors",
             headers:{"Content-type" : "application/json",},
             body:JSON.stringify(newFish)
           });
