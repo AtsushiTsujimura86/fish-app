@@ -19,6 +19,8 @@ const app = express();
 // ポート番号の設定
 const port = process.env.PORT || 5000;
 console.log("lellll")
+console.log('TARGET_ENV:', process.env.TARGET_ENV);  // 環境変数の確認
+console.log('DB Config:', db_config); 
 
 // MySQL データベース接続設定
 const pool = mysql.createPool(db_config);
