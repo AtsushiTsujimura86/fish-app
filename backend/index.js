@@ -51,8 +51,6 @@ app.get('/api/hello', (req, res) => {
 app.get('/api/fish', async (req, res) => {
     res.setHeader('Access-Control-Allow-Credentials', true)
     res.setHeader('Access-Control-Allow-Origin', '*')
-    // another common pattern
-    // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
     res.setHeader(
       'Access-Control-Allow-Headers',
@@ -67,7 +65,25 @@ app.get('/api/fish', async (req, res) => {
     }
     });
 
+app.options('/api/fish', (req, res) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+    res.sendStatus(204); // 204 No Content を返す
+  });
+
 app.post('/api/fish', async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
   const { name, headColor, bodyColor, finColor } = req.body;
   const query =
     'INSERT INTO fish (name, head_color, body_color, fin_color) VALUES(?,?,?,?);';
