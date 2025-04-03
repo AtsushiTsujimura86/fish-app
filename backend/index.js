@@ -1,20 +1,10 @@
-import express from 'express'; // require → import
-import cors from 'cors'; // require → import
-import mysql from 'mysql2/promise'; // require → import
-import { db_config } from './db_config.js'; // require → import
+import express from 'express'; 
+import cors from 'cors'; 
+import mysql from 'mysql2/promise'; 
+import { db_config } from './db_config.js'; 
 
 const app = express();
 
-// CORSを許可する設定（全てのドメインからのリクエストを許可）
-// const allowedOrigins = ['https://fish-creater.vercel.app'];  // フロントエンドのURLを指定
-// const corsOptions = {
-//   origin: allowedOrigins,
-//   methods: ['GET', 'POST'],  // 許可するHTTPメソッド
-//   allowedHeaders: ['Content-Type', 'Authorization'],  // 許可するヘッダー
-// };
-
-// CORSを全てのルートに適用
-// app.use(cors(corsOptions));
 
 // ポート番号の設定
 const port = process.env.PORT || 5000;
